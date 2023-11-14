@@ -186,78 +186,48 @@ public class Crewperson : MonoBehaviour
 			{
 				case PositionNodeType.Train:
 					Debug.Log("Training...");
-					DecayPhysical(_baseDecayRate);
-					DecayEmotional(_baseDecayRate);
-					ReplenishIntellectual(_baseReplenishRate);
+					ModifyNeed(ref _physicalNeeds, -_baseDecayRate * 0.6f);
+					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate * 0.6f);
+					ModifyNeed(ref _intellectualNeeds, _baseReplenishRate);
 					break;
 				case PositionNodeType.Relax:
 					Debug.Log("Relaxing...");
-					DecayPhysical(_baseDecayRate);
-					ReplenishEmotional(_baseReplenishRate);
-					DecayIntellectual(_baseDecayRate);
+					ModifyNeed(ref _physicalNeeds, -_baseDecayRate);
+					ModifyNeed(ref _emotionalNeeds, _baseReplenishRate);
+					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate * 0.6f);
 					break;
 				case PositionNodeType.Restore:
 					Debug.Log("Sleeping...");
-					ReplenishPhysical(_baseReplenishRate);
-					DecayEmotional(_baseDecayRate);
-					DecayIntellectual(_baseDecayRate);
+					ModifyNeed(ref _physicalNeeds, _baseReplenishRate);
+					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate * 0.6f);
+					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate * 0.6f);
 					break;
 				case PositionNodeType.Work:
 					Debug.Log("Working...");
-					DecayPhysical(_baseDecayRate * 0.6f);
-					DecayEmotional(_baseDecayRate * 0.6f);
-					DecayIntellectual(_baseDecayRate * 0.6f);
+					ModifyNeed(ref _physicalNeeds, -_baseDecayRate * 0.6f);
+					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate * 0.6f);
+					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate * 0.6f);
 					break;
 				default:
 					Debug.Log("Idling...");
-					DecayPhysical(_baseDecayRate);
-					DecayEmotional(_baseDecayRate);
-					DecayIntellectual(_baseDecayRate);
+					ModifyNeed(ref _physicalNeeds, -_baseDecayRate);
+					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate);
+					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate);
 					break;
 			}
 		} 
 		else
 		{
 			Debug.Log("Not close enough to a position node");
-			DecayPhysical(_baseDecayRate);
-			DecayEmotional(_baseDecayRate);
-			DecayIntellectual(_baseDecayRate);
+			ModifyNeed(ref _physicalNeeds, -_baseDecayRate);
+			ModifyNeed(ref _emotionalNeeds, -_baseDecayRate);
+			ModifyNeed(ref _intellectualNeeds, -_baseDecayRate);
 		}
 	}
 
-	private void DecayPhysical(float decayRate)
+	private void ModifyNeed(ref float need, float amount)
 	{
-		_physicalNeeds -= decayRate;
-		_physicalNeeds = Mathf.Clamp(_physicalNeeds, 0.0f, 1.0f);
-	}
-
-	private void DecayEmotional(float decayRate)
-	{
-		_emotionalNeeds -= decayRate;
-		_emotionalNeeds = Mathf.Clamp(_emotionalNeeds, 0.0f, 1.0f);
-	}
-
-	private void DecayIntellectual(float decayRate)
-	{
-		_intellectualNeeds -= decayRate;
-		_intellectualNeeds = Mathf.Clamp(_intellectualNeeds, 0.0f, 1.0f);
-	}
-
-	private void ReplenishPhysical(float replenishRate)
-	{
-		_physicalNeeds += replenishRate;
-		_physicalNeeds = Mathf.Clamp(_physicalNeeds, 0.0f, 1.0f);
-	}
-
-	private void ReplenishEmotional(float replenishRate)
-	{
-		_emotionalNeeds += replenishRate;
-		_emotionalNeeds = Mathf.Clamp(_emotionalNeeds, 0.0f, 1.0f);
-	}
-
-	private void ReplenishIntellectual(float replenishRate)
-	{
-		_intellectualNeeds += replenishRate;
-		_intellectualNeeds = Mathf.Clamp(_intellectualNeeds, 0.0f, 1.0f);
+		need += amount;
+		need = Mathf.Clamp(need, 0.0f, 1.0f);
 	}
 }
