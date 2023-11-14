@@ -135,15 +135,13 @@ MonoBehaviour:
   _intellectualNeeds: 0.5
   _emotionalNeeds: 0.5
   _physicalNeeds: 0.5
+  _duties: []
   _needsTolerance: 0.25
-  _decayRate: 0.01
-  _replenishRate: 0.1
-  _needChangeCooldown: 1
-  _currentPositionNode: {fileID: 0}
-  _crewPositionNodes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _baseDecayRate: 0.01
+  _baseReplenishRate: 0.1
+  _needsChangeCooldown: 1
+  _destinationRangeTolerance: 0.5
+  _assignedPositionNode: {fileID: 0}
+  _crewPositionNodes: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}
   _navMeshAgent: {fileID: 3714343991220055039}
-  _currentPriority: 0
+  _currentPriority: 4
