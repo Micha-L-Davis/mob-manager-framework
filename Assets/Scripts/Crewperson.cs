@@ -15,14 +15,17 @@ public class Crewperson : MonoBehaviour
 
     [SerializeField]
     private float _needsTolerance = 0.25f;
-
     [SerializeField]
     private float _decayRate = 0.01f;
     [SerializeField]
     private float _replenishRate = 0.1f;
+
     [SerializeField]
     private float _needsChangeCooldown = 1.0f;
     private float _needsChangeTimer = -1.0f;
+
+    [SerializeField]
+    private float _destinationRangeTolerance = 0.5f;
     private float _canMove = -1.0f;
 
     [SerializeField]
@@ -106,7 +109,7 @@ public class Crewperson : MonoBehaviour
     private bool TargetIsReached()
     {
         float distance = Vector3.Distance(transform.position, _assignedPositionNode.transform.position);
-        if (distance >= 0.5f)
+        if (distance >= _destinationRangeTolerance)
         {
             return false;
         }
@@ -126,6 +129,8 @@ public class Crewperson : MonoBehaviour
                 Debug.LogWarning("No available node found!");
                 return;
             }
+
+            if (positionNode.NodeType == _assignedPositionNode.NodeType) return;
 
             positionNode.IsAvailable = false;
             _assignedPositionNode.IsAvailable = true;
@@ -152,7 +157,8 @@ public class Crewperson : MonoBehaviour
 
     private void SetDestination()
     {
-        _navMeshAgent.destination = _assignedPositionNode.transform.position;
+        if (_navMeshAgent.destination != _assignedPositionNode.transform.position)
+            _navMeshAgent.destination = _assignedPositionNode.transform.position;
     }
 
     private void ProcessNeedsChange()
