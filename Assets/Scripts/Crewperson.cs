@@ -56,7 +56,6 @@ public class Crewperson : MonoBehaviour
 
 	void Update()
 	{
-
 		if (_canMove >= 1.0f - _needsTolerance && TargetIsReached())
 		{
 			CalculatePriorities();
@@ -172,23 +171,20 @@ public class Crewperson : MonoBehaviour
 	{
 		float distance = Vector3.Distance(transform.position, _assignedPositionNode.transform.position);
 
-		Dictionary<CrewNeed, float> newNeeds = new Dictionary<CrewNeed, float>();
-
-		foreach (KeyValuePair<CrewNeed,float> need in _needs)
-        {
-			newNeeds.Add(need.Key, need.Value);
-
-			if (need.Key.PositionNodeType == _assignedPositionNode.NodeType && TargetIsReached())
-            {
-				Debug.Log($"{this.name} replenishing {need.Key.name}");
-				newNeeds[need.Key] += _baseReplenishRate * need.Key.ReplenishmentModifier;
-            }
-            else
-            {
-				newNeeds[need.Key] -= _baseDecayRate * need.Key.DecayModifier;
-            }
-        }
-
-		_needs = newNeeds;
+		List<CrewNeed> keys = new List<CrewNeed>(_needs.Keys);
+		foreach (CrewNeed needKey in keys)
+		{
+			float newValue = _needs[needKey];
+			if (needKey.PositionNodeType == _assignedPositionNode.NodeType && TargetIsReached())
+			{
+				newValue += _baseReplenishRate * needKey.ReplenishmentModifier;
+			}
+			else
+			{
+				newValue -= _baseDecayRate * needKey.DecayModifier;
+			}
+			_needs[needKey] = newValue;
+			//Debug.Log($"{this.name} {needKey.name} = {_needs[needKey]}");
+		}
 	}
 }
