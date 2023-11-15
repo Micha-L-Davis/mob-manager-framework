@@ -29,11 +29,6 @@ public class CrewPositionNode : MonoBehaviour
         _positionNodeSet.Items.Add(this);
     }
 
-    private void OnDisable()
-    {
-        _positionNodeSet.Items.Remove(this);
-    }
-
     private void OnDestroy()
     {
         //leave runtime set

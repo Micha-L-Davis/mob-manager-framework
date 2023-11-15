@@ -7,11 +7,11 @@ using UnityEngine.AI;
 public class Crewperson : MonoBehaviour
 {
 	[SerializeField]
-	private float _intellectualNeeds = 1.0f;
+	private Need _intellectualNeeds;
 	[SerializeField]
-	private float _emotionalNeeds = 1.0f;
+	private Need _emotionalNeeds;
 	[SerializeField]
-	private float _physicalNeeds = 1.0f;
+	private Need _physicalNeeds;
 	[SerializeField]
 	private List<CrewPositionNode> _duties = new List<CrewPositionNode>();
 
@@ -68,19 +68,19 @@ public class Crewperson : MonoBehaviour
 	private void CalculatePriorities()
 	{
 
-		if (_physicalNeeds < _needsTolerance)
+		if (_physicalNeeds.Value < _needsTolerance)
 		{
 			_currentPriority = PositionNodeType.Restore;
 			return;
 		}
 
-		if (_emotionalNeeds < _needsTolerance)
+		if (_emotionalNeeds.Value < _needsTolerance)
 		{
 			_currentPriority = PositionNodeType.Relax;
 			return;
 		}
 
-		if (_intellectualNeeds < _needsTolerance)
+		if (_intellectualNeeds.Value < _needsTolerance)
 		{
 			_currentPriority = PositionNodeType.Train;
 			return;
@@ -95,13 +95,13 @@ public class Crewperson : MonoBehaviour
 		switch (_assignedPositionNode.NodeType)
 		{
 			case PositionNodeType.Train:
-				_canMove = _intellectualNeeds;
+				_canMove = _intellectualNeeds.Value;
 				break;
 			case PositionNodeType.Relax:
-				_canMove = _emotionalNeeds;
+				_canMove = _emotionalNeeds.Value;
 				break;
 			case PositionNodeType.Restore:
-				_canMove = _physicalNeeds;
+				_canMove = _physicalNeeds.Value;
 				break;
 			case PositionNodeType.Work:
 				if (_duties.Count == 0)
@@ -225,9 +225,8 @@ public class Crewperson : MonoBehaviour
 		}
 	}
 
-	private void ModifyNeed(ref float need, float amount)
+	private void ModifyNeed(ref Need need, float amount)
 	{
-		need += amount;
-		need = Mathf.Clamp(need, 0.0f, 1.0f);
+		need.Value += amount;
 	}
 }
