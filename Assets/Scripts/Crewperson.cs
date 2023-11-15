@@ -6,14 +6,12 @@ using UnityEngine.AI;
 
 public class Crewperson : MonoBehaviour
 {
+	// A dictionary of needs and their values, with a serialized list backing it for editor support.
+	private Dictionary<CrewNeed, float> _needs = new Dictionary<CrewNeed, float>();
 	[SerializeField]
-	private float _intellectualNeeds = 1.0f;
+	private List<CrewNeed> _myNeeds = new List<CrewNeed>();
 	[SerializeField]
-	private float _emotionalNeeds = 1.0f;
-	[SerializeField]
-	private float _physicalNeeds = 1.0f;
-	[SerializeField]
-	private List<CrewPositionNode> _duties = new List<CrewPositionNode>();
+	private float _initialNeedValue = 0.5f;
 
 	[SerializeField]
 	private float _needsTolerance = 0.25f;
@@ -28,6 +26,7 @@ public class Crewperson : MonoBehaviour
 
 	[SerializeField]
 	private float _destinationRangeTolerance = 0.5f;
+	[SerializeField]
 	private float _canMove = -1.0f;
 
 	[SerializeField]
@@ -37,25 +36,35 @@ public class Crewperson : MonoBehaviour
 	[SerializeField]
 	private NavMeshAgent _navMeshAgent;
 	[SerializeField]
-	private PositionNodeType _currentPriority;
+	private PositionNodeType _destinationType;
+	[SerializeField]
+	private CrewNeed _priorityNeed;
 
-	void Start()
+    void Start()
 	{
+		// Initialize the needs dictionary
+		foreach (CrewNeed need in _myNeeds)
+		{
+			_needs.Add(need, _initialNeedValue);
+		}
+
 		_canMove = 1.0f - _needsTolerance;
+		CalculatePriorities();
 		AssignPositionNode();
 		SetDestination();
 	}
 
 	void Update()
 	{
-		CalculatePriorities();
-		CalculateCanMove();
 
 		if (_canMove >= 1.0f - _needsTolerance && TargetIsReached())
 		{
+			CalculatePriorities();
 			AssignPositionNode();
 			SetDestination();
 		}
+
+		CalculateCanMove();
 
 	
 		if (Time.time > _needsChangeTimer)
@@ -67,52 +76,35 @@ public class Crewperson : MonoBehaviour
 
 	private void CalculatePriorities()
 	{
+		_priorityNeed = null;
 
-		if (_physicalNeeds < _needsTolerance)
-		{
-			_currentPriority = PositionNodeType.Restore;
-			return;
+		foreach (KeyValuePair<CrewNeed,float> need in _needs.OrderBy(n => n.Key.Priority))
+        {
+			if (need.Value < _needsTolerance)
+			{
+				_priorityNeed = need.Key;
+				_destinationType = need.Key.PositionNodeType;
+				return;
+			}
 		}
 
-		if (_emotionalNeeds < _needsTolerance)
-		{
-			_currentPriority = PositionNodeType.Relax;
-			return;
-		}
-
-		if (_intellectualNeeds < _needsTolerance)
-		{
-			_currentPriority = PositionNodeType.Train;
-			return;
-		}
-
-		_currentPriority = PositionNodeType.Idle;
+		if (_priorityNeed == null)
+        {
+			_destinationType = PositionNodeType.Idle;
+        }
 	}
 
 	private void CalculateCanMove()
 	{
 		// Maintain the _canMove variable so that the crewperson remains on station until their need is met
-		switch (_assignedPositionNode.NodeType)
-		{
-			case PositionNodeType.Train:
-				_canMove = _intellectualNeeds;
-				break;
-			case PositionNodeType.Relax:
-				_canMove = _emotionalNeeds;
-				break;
-			case PositionNodeType.Restore:
-				_canMove = _physicalNeeds;
-				break;
-			case PositionNodeType.Work:
-				if (_duties.Count == 0)
-				{
-					_canMove = 1.0f - _needsTolerance;
-				}
-				break;
-			default:
-				_canMove = 1.0f - _needsTolerance; // No needs are served here, we should move on quickly
-				break;
-		}
+		if (_priorityNeed != null)
+        {
+			_canMove = _needs[_priorityNeed];
+        }
+		else
+        {
+			_canMove = 1 - _needsTolerance;
+        }
 	}
 
 	private bool TargetIsReached()
@@ -135,7 +127,7 @@ public class Crewperson : MonoBehaviour
 			CrewPositionNode positionNode = _crewPositionNodes.Items.Where(node => node.NodeType == type && node.IsAvailable).FirstOrDefault();
 			if (positionNode == null)
 			{
-				Debug.LogWarning("No available node found!");
+				//Debug.LogWarning("No available node found!");
 				return;
 			}
 
@@ -147,10 +139,10 @@ public class Crewperson : MonoBehaviour
 				_assignedPositionNode.IsAvailable = true;
             }
 			_assignedPositionNode = positionNode;
-			Debug.Log($"{gameObject.name} assigned to {_assignedPositionNode.name}");
+			//Debug.Log($"{gameObject.name} assigned to {_assignedPositionNode.name}");
 		}
 
-		switch (_currentPriority)
+		switch (_destinationType)
 		{
 			case PositionNodeType.Restore:
 				FindAvailableNode(PositionNodeType.Restore);
@@ -180,54 +172,23 @@ public class Crewperson : MonoBehaviour
 	{
 		float distance = Vector3.Distance(transform.position, _assignedPositionNode.transform.position);
 
-		if (TargetIsReached())
-		{
-			switch (_assignedPositionNode.NodeType)
-			{
-				case PositionNodeType.Train:
-					Debug.Log("Training...");
-					ModifyNeed(ref _physicalNeeds, -_baseDecayRate * 0.6f);
-					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate * 0.6f);
-					ModifyNeed(ref _intellectualNeeds, _baseReplenishRate);
-					break;
-				case PositionNodeType.Relax:
-					Debug.Log("Relaxing...");
-					ModifyNeed(ref _physicalNeeds, -_baseDecayRate);
-					ModifyNeed(ref _emotionalNeeds, _baseReplenishRate);
-					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate * 0.6f);
-					break;
-				case PositionNodeType.Restore:
-					Debug.Log("Sleeping...");
-					ModifyNeed(ref _physicalNeeds, _baseReplenishRate);
-					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate * 0.6f);
-					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate * 0.6f);
-					break;
-				case PositionNodeType.Work:
-					Debug.Log("Working...");
-					ModifyNeed(ref _physicalNeeds, -_baseDecayRate * 0.6f);
-					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate * 0.6f);
-					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate * 0.6f);
-					break;
-				default:
-					Debug.Log("Idling...");
-					ModifyNeed(ref _physicalNeeds, -_baseDecayRate);
-					ModifyNeed(ref _emotionalNeeds, -_baseDecayRate);
-					ModifyNeed(ref _intellectualNeeds, -_baseDecayRate);
-					break;
-			}
-		} 
-		else
-		{
-			Debug.Log("Not close enough to a position node");
-			ModifyNeed(ref _physicalNeeds, -_baseDecayRate);
-			ModifyNeed(ref _emotionalNeeds, -_baseDecayRate);
-			ModifyNeed(ref _intellectualNeeds, -_baseDecayRate);
-		}
-	}
+		Dictionary<CrewNeed, float> newNeeds = new Dictionary<CrewNeed, float>();
 
-	private void ModifyNeed(ref float need, float amount)
-	{
-		need += amount;
-		need = Mathf.Clamp(need, 0.0f, 1.0f);
+		foreach (KeyValuePair<CrewNeed,float> need in _needs)
+        {
+			newNeeds.Add(need.Key, need.Value);
+
+			if (need.Key.PositionNodeType == _assignedPositionNode.NodeType && TargetIsReached())
+            {
+				Debug.Log($"{this.name} replenishing {need.Key.name}");
+				newNeeds[need.Key] += _baseReplenishRate * need.Key.ReplenishmentModifier;
+            }
+            else
+            {
+				newNeeds[need.Key] -= _baseDecayRate * need.Key.DecayModifier;
+            }
+        }
+
+		_needs = newNeeds;
 	}
 }
