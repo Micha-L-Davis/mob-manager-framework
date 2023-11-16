@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Assets/Crew Need")]
+[CreateAssetMenu(menuName = "Scriptable Asset/Crew Need")]
 public class CrewNeed : ScriptableObject
 {
     [SerializeField]
@@ -10,8 +10,12 @@ public class CrewNeed : ScriptableObject
     public int Priority { get { return _priority; } set { _priority = value; } }
 
     [SerializeField]
-    private PositionNodeType _positionNodeType;
-    public PositionNodeType PositionNodeType { get { return _positionNodeType; } set { _positionNodeType = value; } }
+    private CrewActivityType _positionNodeType;
+    public CrewActivityType PositionNodeType { get { return _positionNodeType; } set { _positionNodeType = value; } }
+
+    [SerializeField]
+    private ProficiencyType _requiredProficiency;
+    public ProficiencyType RequiredProficiency { get { return _requiredProficiency; } }
 
     [SerializeField]
     private float _replenishmentModifier = 1.0f;

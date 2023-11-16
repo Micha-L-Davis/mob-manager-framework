@@ -6,10 +6,13 @@ using UnityEngine.AI;
 
 public class Crewperson : MonoBehaviour
 {
+	[SerializeField]
+	private ProficiencyType _proficiency;
+
 	// A dictionary of needs and their values, with a serialized list backing it for editor support.
 	private Dictionary<CrewNeed, float> _needs = new Dictionary<CrewNeed, float>();
 	[SerializeField]
-	private List<CrewNeed> _myNeeds = new List<CrewNeed>();
+	private NeedsList _needsList;
 	[SerializeField]
 	private float _initialNeedValue = 0.5f;
 
@@ -36,15 +39,17 @@ public class Crewperson : MonoBehaviour
 	[SerializeField]
 	private NavMeshAgent _navMeshAgent;
 	[SerializeField]
-	private PositionNodeType _destinationType;
+	private CrewActivityType _destinationType;
 	[SerializeField]
 	private CrewNeed _priorityNeed;
 
     void Start()
 	{
 		// Initialize the needs dictionary
-		foreach (CrewNeed need in _myNeeds)
+		foreach (CrewNeed need in _needsList.Items)
 		{
+			if (_proficiency != need.RequiredProficiency) continue;
+
 			_needs.Add(need, _initialNeedValue);
 		}
 
@@ -89,7 +94,7 @@ public class Crewperson : MonoBehaviour
 
 		if (_priorityNeed == null)
         {
-			_destinationType = PositionNodeType.Idle;
+			_destinationType = CrewActivityType.Idle;
         }
 	}
 
@@ -121,7 +126,7 @@ public class Crewperson : MonoBehaviour
 
 	private void AssignPositionNode()
 	{
-		void FindAvailableNode(PositionNodeType type)
+		void FindAvailableNode(CrewActivityType type)
 		{
 			CrewPositionNode positionNode = _crewPositionNodes.Items.Where(node => node.NodeType == type && node.IsAvailable).FirstOrDefault();
 			if (positionNode == null)
@@ -143,20 +148,20 @@ public class Crewperson : MonoBehaviour
 
 		switch (_destinationType)
 		{
-			case PositionNodeType.Restore:
-				FindAvailableNode(PositionNodeType.Restore);
+			case CrewActivityType.Restore:
+				FindAvailableNode(CrewActivityType.Restore);
 				break;
-			case PositionNodeType.Relax:
-				FindAvailableNode(PositionNodeType.Relax);
+			case CrewActivityType.Relax:
+				FindAvailableNode(CrewActivityType.Relax);
 				break;
-			case PositionNodeType.Train:
-				FindAvailableNode(PositionNodeType.Train);
+			case CrewActivityType.Train:
+				FindAvailableNode(CrewActivityType.Train);
 				break;
-			case PositionNodeType.Work:
-				FindAvailableNode(PositionNodeType.Work);
+			case CrewActivityType.Work:
+				FindAvailableNode(CrewActivityType.Work);
 				break;
 			default:
-				FindAvailableNode(PositionNodeType.Idle);
+				FindAvailableNode(CrewActivityType.Idle);
 				break;
 		}
 	}

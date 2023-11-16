@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73b7d22287c04c04fafc8f650998e576, type: 3}
   m_Name: Emotional Need
   m_EditorClassIdentifier: 
-  _priority: 0
-  _positionNodeType: 0
+  _priority: 1
+  _positionNodeType: 1
   _replenishmentModifier: 1
   _decayModifier: 1

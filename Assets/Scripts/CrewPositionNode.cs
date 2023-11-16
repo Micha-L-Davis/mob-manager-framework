@@ -2,25 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PositionNodeType
-{
-    Restore,
-    Relax,
-    Train,
-    Work,
-    Idle
-}
-
 public class CrewPositionNode : MonoBehaviour
 {
     [SerializeField]
-    private PositionNodeType _nodeType;
+    private CrewActivityType _nodeType;
     [SerializeField]
     private bool _isAvailable = true;
     [SerializeField]
     private PositionNodeSet _positionNodeSet;
 
-    public PositionNodeType NodeType { get { return _nodeType; } }
+    public CrewActivityType NodeType { get { return _nodeType; } }
     public bool IsAvailable { get { return _isAvailable; }  set { _isAvailable = value; } }
 
     private void Awake()
