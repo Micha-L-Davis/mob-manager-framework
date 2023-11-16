@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b0a89b6e2b141c4b9df5f1e42aaaba5, type: 3}
   m_Name: CrewNeedsList
   m_EditorClassIdentifier: 
-  Items: []
+  Items:
+  - {fileID: 11400000, guid: 02e0ff089ad17b5468f68e55b6edaf73, type: 2}
+  - {fileID: 11400000, guid: 0f9ee2df431ed7241925418b761e60e7, type: 2}
+  - {fileID: 11400000, guid: bcfa6b7a7aa7ca7439280d66b9e80ee4, type: 2}
+  - {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
+  - {fileID: 11400000, guid: c6ca53412b82d6e44b245e771e446282, type: 2}

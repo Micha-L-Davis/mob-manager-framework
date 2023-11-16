@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 73b7d22287c04c04fafc8f650998e576, type: 3}
-  m_Name: Emotional Need
+  m_Name: Physical Need
   m_EditorClassIdentifier: 
-  _priority: 1
-  _positionNodeType: 1
+  _priority: 0
+  _requiredProficiency: 0
+  _needTolerance: 0.25
   _replenishmentModifier: 1
-  _decayModifier: 1
+  _decayModifier: 0.5

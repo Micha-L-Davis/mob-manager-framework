@@ -1,5 +1,6 @@
 public enum ProficiencyType
 {
+    Basic,
     Pilot,
     Navigator,
     Astrogator,

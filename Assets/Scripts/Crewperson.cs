@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Crewperson : MonoBehaviour
 {
 	[SerializeField]
-	private ProficiencyType _proficiency;
+	private List<ProficiencyType> _proficiencies = new List<ProficiencyType>();
 
 	// A dictionary of needs and their values, with a serialized list backing it for editor support.
 	private Dictionary<CrewNeed, float> _needs = new Dictionary<CrewNeed, float>();
@@ -16,8 +16,7 @@ public class Crewperson : MonoBehaviour
 	[SerializeField]
 	private float _initialNeedValue = 0.5f;
 
-	[SerializeField]
-	private float _needsTolerance = 0.25f;
+
 	[SerializeField]
 	private float _baseDecayRate = 0.01f;
 	[SerializeField]
@@ -39,32 +38,35 @@ public class Crewperson : MonoBehaviour
 	[SerializeField]
 	private NavMeshAgent _navMeshAgent;
 	[SerializeField]
-	private CrewActivityType _destinationType;
-	[SerializeField]
-	private CrewNeed _priorityNeed;
+	private CrewNeed _priorityNeed; //All crewpersons should start with Standby Need
 
     void Start()
 	{
 		// Initialize the needs dictionary
 		foreach (CrewNeed need in _needsList.Items)
 		{
-			if (_proficiency != need.RequiredProficiency) continue;
+			//cull needs this crewperson cannot satisfy
+			if (!_proficiencies.Contains(need.RequiredProficiency)) continue;
 
 			_needs.Add(need, _initialNeedValue);
 		}
 
-		_canMove = 1.0f - _needsTolerance;
+		if (_priorityNeed != null)
+        {
+			_canMove = 1.0f - _priorityNeed.NeedTolerance;
+        }
+
 		CalculatePriorities();
-		AssignPositionNode();
+		FindAvailableNode(_priorityNeed);
 		SetDestination();
 	}
 
 	void Update()
 	{
-		if (_canMove >= 1.0f - _needsTolerance && TargetIsReached())
+		if (_canMove >= 1.0f - _priorityNeed.NeedTolerance && TargetIsReached())
 		{
 			CalculatePriorities();
-			AssignPositionNode();
+			FindAvailableNode(_priorityNeed);
 			SetDestination();
 		}
 
@@ -80,35 +82,21 @@ public class Crewperson : MonoBehaviour
 
 	private void CalculatePriorities()
 	{
-		_priorityNeed = null;
-
 		foreach (KeyValuePair<CrewNeed,float> need in _needs.OrderBy(n => n.Key.Priority))
         {
-			if (need.Value < _needsTolerance)
+			//Debug.Log($"Checking {need.Key.name} at {need.Key.Priority}. Is {need.Value} < {_priorityNeed.NeedTolerance}?");
+			if (need.Value < need.Key.NeedTolerance)
 			{
 				_priorityNeed = need.Key;
-				_destinationType = need.Key.PositionNodeType;
 				return;
 			}
 		}
-
-		if (_priorityNeed == null)
-        {
-			_destinationType = CrewActivityType.Idle;
-        }
 	}
 
 	private void CalculateCanMove()
 	{
 		// Maintain the _canMove variable so that the crewperson remains on station until their need is met
-		if (_priorityNeed != null)
-        {
-			_canMove = _needs[_priorityNeed];
-        }
-		else
-        {
-			_canMove = 1 - _needsTolerance;
-        }
+		_canMove = _needs[_priorityNeed];
 	}
 
 	private bool TargetIsReached()
@@ -124,46 +112,24 @@ public class Crewperson : MonoBehaviour
 		}
 	}
 
-	private void AssignPositionNode()
+	void FindAvailableNode(CrewNeed type)
 	{
-		void FindAvailableNode(CrewActivityType type)
+		CrewPositionNode positionNode = _crewPositionNodes.Items.Where(node => node.NeedSatisfied == type && node.IsAvailable).FirstOrDefault();
+		if (positionNode == null)
 		{
-			CrewPositionNode positionNode = _crewPositionNodes.Items.Where(node => node.NodeType == type && node.IsAvailable).FirstOrDefault();
-			if (positionNode == null)
-			{
-				//Debug.LogWarning("No available node found!");
-				return;
-			}
-
-			if (positionNode.NodeType == _assignedPositionNode?.NodeType) return;
-
-			positionNode.IsAvailable = false;
-			if (_assignedPositionNode != null)
-            {
-				_assignedPositionNode.IsAvailable = true;
-            }
-			_assignedPositionNode = positionNode;
-			//Debug.Log($"{gameObject.name} assigned to {_assignedPositionNode.name}");
+			//Debug.LogWarning("No available node found!");
+			return;
 		}
 
-		switch (_destinationType)
+		if (positionNode.NeedSatisfied == _assignedPositionNode?.NeedSatisfied) return;
+
+		positionNode.IsAvailable = false;
+		if (_assignedPositionNode != null)
 		{
-			case CrewActivityType.Restore:
-				FindAvailableNode(CrewActivityType.Restore);
-				break;
-			case CrewActivityType.Relax:
-				FindAvailableNode(CrewActivityType.Relax);
-				break;
-			case CrewActivityType.Train:
-				FindAvailableNode(CrewActivityType.Train);
-				break;
-			case CrewActivityType.Work:
-				FindAvailableNode(CrewActivityType.Work);
-				break;
-			default:
-				FindAvailableNode(CrewActivityType.Idle);
-				break;
+			_assignedPositionNode.IsAvailable = true;
 		}
+		_assignedPositionNode = positionNode;
+		//Debug.Log($"{gameObject.name} assigned to {_assignedPositionNode.name}");
 	}
 
 	private void SetDestination()
@@ -180,7 +146,7 @@ public class Crewperson : MonoBehaviour
 		foreach (CrewNeed needKey in keys)
 		{
 			float newValue = _needs[needKey];
-			if (needKey.PositionNodeType == _assignedPositionNode.NodeType && TargetIsReached())
+			if (needKey == _assignedPositionNode.NeedSatisfied && TargetIsReached())
 			{
 				newValue += _baseReplenishRate * needKey.ReplenishmentModifier;
 			}
@@ -188,6 +154,8 @@ public class Crewperson : MonoBehaviour
 			{
 				newValue -= _baseDecayRate * needKey.DecayModifier;
 			}
+
+			newValue = Mathf.Clamp(newValue, 0.0f, 1.0f);
 			_needs[needKey] = newValue;
 			//Debug.Log($"{this.name} {needKey.name} = {_needs[needKey]}");
 		}

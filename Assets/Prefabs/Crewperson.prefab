@@ -132,10 +132,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abcc3570e8f62044bedb16e8f2ce0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _proficiency: 0
+  _proficiencies: 00000000
   _needsList: {fileID: 11400000, guid: 434bee5917770734aa81a8d6fe64d2d4, type: 2}
   _initialNeedValue: 0.5
-  _needsTolerance: 0.25
   _baseDecayRate: 0.01
   _baseReplenishRate: 0.1
   _needsChangeCooldown: 1
@@ -144,5 +143,4 @@ MonoBehaviour:
   _assignedPositionNode: {fileID: 0}
   _crewPositionNodes: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}
   _navMeshAgent: {fileID: 3714343991220055039}
-  _destinationType: 4
-  _priorityNeed: {fileID: 0}
+  _priorityNeed: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}

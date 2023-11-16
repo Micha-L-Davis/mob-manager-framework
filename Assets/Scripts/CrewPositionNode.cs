@@ -5,13 +5,14 @@ using UnityEngine;
 public class CrewPositionNode : MonoBehaviour
 {
     [SerializeField]
-    private CrewActivityType _nodeType;
+    private CrewNeed _needSatisfied;
     [SerializeField]
     private bool _isAvailable = true;
     [SerializeField]
     private PositionNodeSet _positionNodeSet;
 
-    public CrewActivityType NodeType { get { return _nodeType; } }
+    public CrewNeed NeedSatisfied { get { return _needSatisfied; } }
+    //public CrewActivityType NodeType { get { return _nodeType; } }
     public bool IsAvailable { get { return _isAvailable; }  set { _isAvailable = value; } }
 
     private void Awake()
