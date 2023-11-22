@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3714343991220055038}
   - component: {fileID: 3714343991220055039}
   - component: {fileID: 3714343991220055034}
+  - component: {fileID: 1140509325682812069}
   m_Layer: 0
   m_Name: Crewperson
   m_TagString: Untagged
@@ -133,14 +134,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _proficiencies: 00000000
+  _crewpersonSet: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
+  _needs: {fileID: 1140509325682812069}
+  _navMeshAgent: {fileID: 3714343991220055039}
+  _resolvableNeed: {fileID: 0}
+--- !u!114 &1140509325682812069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3714343991220054528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e6b7305a5d8a36449cbe3316246733f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _needsList: {fileID: 11400000, guid: 434bee5917770734aa81a8d6fe64d2d4, type: 2}
   _initialNeedValue: 0.5
   _baseDecayRate: 0.01
   _baseReplenishRate: 0.1
   _needsChangeCooldown: 1
-  _destinationRangeTolerance: 0.5
-  _canMove: -1
-  _assignedPositionNode: {fileID: 0}
-  _crewPositionNodes: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}
-  _navMeshAgent: {fileID: 3714343991220055039}
   _priorityNeed: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
+  _needResolverList: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}
+  _resolverRangeTolerance: 0.5

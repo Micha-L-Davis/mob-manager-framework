@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: CrewNeedsList
   m_EditorClassIdentifier: 
   Items:
-  - {fileID: 11400000, guid: 02e0ff089ad17b5468f68e55b6edaf73, type: 2}
-  - {fileID: 11400000, guid: 0f9ee2df431ed7241925418b761e60e7, type: 2}
-  - {fileID: 11400000, guid: bcfa6b7a7aa7ca7439280d66b9e80ee4, type: 2}
+  - {fileID: 11400000, guid: 9d4cf135bf59a324a8eb4b5899244a37, type: 2}
+  - {fileID: 11400000, guid: 1d53be8313f47714ca8ba64a6a39aaee, type: 2}
+  - {fileID: 11400000, guid: d2120250001a97b4a845c0370ff226f6, type: 2}
   - {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
-  - {fileID: 11400000, guid: c6ca53412b82d6e44b245e771e446282, type: 2}

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Asset/Needs List")]
+[CreateAssetMenu(menuName = "Scriptable Asset/Needs/Needs List")]
 public class NeedsList : ScriptableObject
 {
-    public List<CrewNeed> Items = new List<CrewNeed>();
+    public List<Need> Items = new List<Need>();
 }

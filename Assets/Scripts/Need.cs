@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Scriptable Asset/Crew Need")]
-public class CrewNeed : ScriptableObject
+[CreateAssetMenu(menuName = "Scriptable Asset/Needs/Need Asset")]
+public class Need : ScriptableObject
 {
     [SerializeField]
     private int _priority;

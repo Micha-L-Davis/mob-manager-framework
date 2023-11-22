@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73b7d22287c04c04fafc8f650998e576, type: 3}
-  m_Name: Intellectual Need
+  m_Script: {fileID: 11500000, guid: 6efc6595ca009074699833d4026e699c, type: 3}
+  m_Name: Relaxation Need
   m_EditorClassIdentifier: 
-  _priority: 2
+  _priority: 1
   _requiredProficiency: 0
   _needTolerance: 0.25
-  _replenishmentModifier: 1
+  _replenishmentModifier: 0.75
   _decayModifier: 0.5
