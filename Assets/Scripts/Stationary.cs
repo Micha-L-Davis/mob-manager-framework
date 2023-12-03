@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositionNode : MonoBehaviour, INeedResolver
+public class Stationary : MonoBehaviour, INeedResolver
 {
     [SerializeField]
     private Need _needSatisfied;
     [SerializeField]
     private bool _isAvailable = true;
     [SerializeField]
-    private PositionNodeSet _positionNodeSet;
+    private StationarySet _positionNodeSet;
 
     public Need ResolvableNeed { get { return _needSatisfied; } }
 
@@ -29,9 +29,13 @@ public class PositionNode : MonoBehaviour, INeedResolver
         _positionNodeSet.Items.Remove(this);
     }
 
-    public void ResolveNeed(GameObject needyObject)
+    public bool ResolveNeed(Needs needyObject)
     {
-        Needs needs = needyObject.GetComponent<Needs>();
-        // access RestoreNeed method for need.
+        if (Vector3.Distance(this.transform.position, needyObject.transform.position) > 0.5f)
+        {
+            needyObject.ReplenishNeed(ResolvableNeed);
+            return true;
+        }
+        return false;
     }
 }

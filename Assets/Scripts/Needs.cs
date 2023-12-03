@@ -12,7 +12,6 @@ public class Needs : MonoBehaviour
     [SerializeField]
     private float _initialNeedValue = 0.5f;
 
-
     [SerializeField]
     private float _baseDecayRate = 0.01f;
     [SerializeField]
@@ -54,7 +53,6 @@ public class Needs : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.time > _needsChangeTimer)
@@ -63,6 +61,7 @@ public class Needs : MonoBehaviour
             ProcessNeedsChange();
         }
 
+        // if the current priority is topped off AND we're next to the resolver, we are now available.
         if (PriorityNeedValue >= 1.0f - _priorityNeed.NeedTolerance && ResolverInRange())
         {
             _priorityNeed = CalculatePriorities();
@@ -80,14 +79,15 @@ public class Needs : MonoBehaviour
         foreach (Need needKey in keys)
         {
             float newValue = _needs[needKey];
-            if (needKey == _assignedResolver.ResolvableNeed && ResolverInRange())
+            if (needKey == _assignedResolver.ResolvableNeed)
             {
-                newValue += _baseReplenishRate * needKey.ReplenishmentModifier;
+                bool isResolved = _assignedResolver.ResolveNeed(this);
+
+                if (isResolved) //don't decay
+                    continue;
             }
-            else
-            {
-                newValue -= _baseDecayRate * needKey.DecayModifier;
-            }
+
+            newValue -= _baseDecayRate * needKey.DecayModifier;
 
             newValue = Mathf.Clamp(newValue, 0.0f, 1.0f);
             _needs[needKey] = newValue;
@@ -143,5 +143,19 @@ public class Needs : MonoBehaviour
         }
         _assignedResolver = needResolver;
         //Debug.Log($"{gameObject.name} assigned to {_assignedPositionNode.name}");
+    }
+
+    public void AddNeed(Need newNeed, float value)
+    {
+        _needsList.Items.Add(newNeed);
+        _needs.Add(newNeed, value);
+    }
+
+    public void ReplenishNeed(Need need)
+    {
+        if (_needs.ContainsKey(need))
+        {
+            _needs[need] += _baseReplenishRate * need.ReplenishmentModifier;
+        }
     }
 }

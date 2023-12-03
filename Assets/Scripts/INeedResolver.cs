@@ -10,5 +10,5 @@ public interface INeedResolver
 
     public bool IsAvailable { get; set; }
 
-    public void ResolveNeed(GameObject needyObject);
+    public bool ResolveNeed(Needs needyObject);
 }
