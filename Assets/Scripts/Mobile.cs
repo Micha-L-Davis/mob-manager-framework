@@ -14,8 +14,8 @@ public class Mobile : MonoBehaviour, INeedResolver
 	private NavMeshAgent _navMeshAgent;
 
 	[SerializeField]
-	private Need _resolvableNeed;
-    public Need ResolvableNeed => _resolvableNeed;
+	private List<Need> _resolvableNeeds;
+    public List<Need> ResolvableNeeds => _resolvableNeeds;
 
     public Transform Transform => this.transform;
 
@@ -48,8 +48,11 @@ public class Mobile : MonoBehaviour, INeedResolver
 
 		if (_navMeshAgent.remainingDistance < 0.5f)
         {
-			needyObject.ReplenishNeed(ResolvableNeed);
-			return true;
+			foreach (Need need in ResolvableNeeds)
+            {
+				needyObject.ReplenishNeed(need);
+				return true;
+            }
         }
 
 		return false;

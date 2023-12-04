@@ -27,4 +27,6 @@ public class Need : ScriptableObject
     [SerializeField]
     private float _decayModifier = 1.0f;
     public float DecayModifier { get { return _decayModifier; } }
+
+    // we need logic here to accept a delegate function that can be triggered when the value is at zero.
 }

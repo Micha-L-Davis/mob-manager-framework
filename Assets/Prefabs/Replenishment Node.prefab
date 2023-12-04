@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6758081550719187128}
   - component: {fileID: 5948784079529981552}
   m_Layer: 0
-  m_Name: Position Node
+  m_Name: Replenishment Node
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96,4 +96,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _needSatisfied: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
   _isAvailable: 1
-  _positionNodeSet: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}
+  _stationarySet: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}

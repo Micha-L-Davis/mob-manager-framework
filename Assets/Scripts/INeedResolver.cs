@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface INeedResolver
 {
-    public Need ResolvableNeed { get; }
+    public List<Need> ResolvableNeeds { get; }
 
     public Transform Transform { get; }
 

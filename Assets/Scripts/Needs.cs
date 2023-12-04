@@ -79,7 +79,7 @@ public class Needs : MonoBehaviour
         foreach (Need needKey in keys)
         {
             float newValue = _needs[needKey];
-            if (needKey == _assignedResolver.ResolvableNeed)
+            if (_assignedResolver.ResolvableNeeds.Contains(needKey))
             {
                 bool isResolved = _assignedResolver.ResolveNeed(this);
 
@@ -92,6 +92,9 @@ public class Needs : MonoBehaviour
             newValue = Mathf.Clamp(newValue, 0.0f, 1.0f);
             _needs[needKey] = newValue;
             //Debug.Log($"{this.name} {needKey.name} = {_needs[needKey]}");
+
+            // Here we need to trigger what happens if the need value is at 0.
+
         }
     }
 
@@ -127,14 +130,14 @@ public class Needs : MonoBehaviour
 
     void FindAvailableResolver(Need type)
     {
-        INeedResolver needResolver = _needResolverList.Items.Where(node => node.ResolvableNeed == type && node.IsAvailable).FirstOrDefault();
+        INeedResolver needResolver = _needResolverList.Items.Where(node => node.ResolvableNeeds.Contains(type) && node.IsAvailable).FirstOrDefault();
         if (needResolver == null)
         {
             //Debug.LogWarning("No available node found!");
             return;
         }
 
-        if (needResolver.ResolvableNeed == _assignedResolver?.ResolvableNeed) return;
+        if (needResolver.ResolvableNeeds == _assignedResolver?.ResolvableNeeds) return;
 
         needResolver.IsAvailable = false;
         if (_assignedResolver != null)
@@ -149,6 +152,7 @@ public class Needs : MonoBehaviour
     {
         _needsList.Items.Add(newNeed);
         _needs.Add(newNeed, value);
+        _priorityNeed = CalculatePriorities();
     }
 
     public void ReplenishNeed(Need need)

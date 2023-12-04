@@ -133,11 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abcc3570e8f62044bedb16e8f2ce0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _proficiencies: 00000000
-  _crewpersonSet: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
-  _needs: {fileID: 1140509325682812069}
+  _mobileSet: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
   _navMeshAgent: {fileID: 3714343991220055039}
-  _resolvableNeed: {fileID: 0}
+  _resolvableNeed: {fileID: 11400000, guid: c6ca53412b82d6e44b245e771e446282, type: 2}
 --- !u!114 &1140509325682812069
 MonoBehaviour:
   m_ObjectHideFlags: 0

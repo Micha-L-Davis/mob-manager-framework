@@ -5,13 +5,13 @@ using UnityEngine;
 public class Stationary : MonoBehaviour, INeedResolver
 {
     [SerializeField]
-    private Need _needSatisfied;
+    private List<Need> _needsSatisfied;
     [SerializeField]
     private bool _isAvailable = true;
     [SerializeField]
-    private StationarySet _positionNodeSet;
+    private StationarySet _stationarySet;
 
-    public Need ResolvableNeed { get { return _needSatisfied; } }
+    public List<Need> ResolvableNeeds { get { return _needsSatisfied; } }
 
     public bool IsAvailable { get { return _isAvailable; }  set { _isAvailable = value; } }
 
@@ -20,20 +20,23 @@ public class Stationary : MonoBehaviour, INeedResolver
     private void Awake()
     {
         //join runtime set
-        _positionNodeSet.Items.Add(this);
+        _stationarySet.Items.Add(this);
     }
 
     private void OnDestroy()
     {
         //leave runtime set
-        _positionNodeSet.Items.Remove(this);
+        _stationarySet.Items.Remove(this);
     }
 
     public bool ResolveNeed(Needs needyObject)
     {
         if (Vector3.Distance(this.transform.position, needyObject.transform.position) > 0.5f)
         {
-            needyObject.ReplenishNeed(ResolvableNeed);
+            foreach (Need need in ResolvableNeeds)
+            {
+                needyObject.ReplenishNeed(need);
+            }
             return true;
         }
         return false;
