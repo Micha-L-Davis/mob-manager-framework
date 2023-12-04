@@ -10,6 +10,8 @@ public class Stationary : MonoBehaviour, INeedResolver
     private bool _isAvailable = true;
     [SerializeField]
     private StationarySet _stationarySet;
+    [SerializeField]
+    private ResolverSet _resolverSet;
 
     public List<Need> ResolvableNeeds { get { return _needsSatisfied; } }
 
@@ -21,12 +23,14 @@ public class Stationary : MonoBehaviour, INeedResolver
     {
         //join runtime set
         _stationarySet.Items.Add(this);
+        _resolverSet.Items.Add(this);
     }
 
     private void OnDestroy()
     {
         //leave runtime set
         _stationarySet.Items.Remove(this);
+        _resolverSet.Items.Remove(this);
     }
 
     public bool ResolveNeed(Needs needyObject)

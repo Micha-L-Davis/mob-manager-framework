@@ -101,7 +101,7 @@ MonoBehaviour:
   _baseReplenishRate: 0.1
   _needsChangeCooldown: 1
   _priorityNeed: {fileID: 0}
-  _needResolverList: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
+  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
   _resolverRangeTolerance: 0.5
 --- !u!114 &8603403579734989162
 MonoBehaviour:
@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcc52630a22d31419f45a50bda3230d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needSatisfied: {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
+  _needsSatisfied:
+  - {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
   _isAvailable: 1
   _stationarySet: {fileID: 11400000, guid: 3dc70964bddd8ae4d811df479bbc4be4, type: 2}
+  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
   _workstationType: {fileID: 11400000, guid: c6ca53412b82d6e44b245e771e446282, type: 2}
   _defaultValue: 0.5
 --- !u!1 &5559139786927389240
@@ -220,8 +222,8 @@ MonoBehaviour:
   _baseDecayRate: 0.01
   _baseReplenishRate: 0.1
   _needsChangeCooldown: 1
-  _priorityNeed: {fileID: 0}
-  _needResolverList: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
+  _priorityNeed: {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
+  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
   _resolverRangeTolerance: 0.5
 --- !u!114 &5597968522413749018
 MonoBehaviour:
@@ -235,9 +237,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcc52630a22d31419f45a50bda3230d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needSatisfied: {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
+  _needsSatisfied:
+  - {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
+  - {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
   _isAvailable: 1
   _stationarySet: {fileID: 11400000, guid: 3dc70964bddd8ae4d811df479bbc4be4, type: 2}
+  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
   _workstationType: {fileID: 11400000, guid: 01ab6f28d889d6749a37673d4f091d76, type: 2}
   _defaultValue: 0.5
 --- !u!1 &6788740985081305312
@@ -439,8 +444,8 @@ MonoBehaviour:
   _baseDecayRate: 0.01
   _baseReplenishRate: 0.1
   _needsChangeCooldown: 1
-  _priorityNeed: {fileID: 0}
-  _needResolverList: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
+  _priorityNeed: {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
+  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
   _resolverRangeTolerance: 0.5
 --- !u!114 &5722828131418043558
 MonoBehaviour:
@@ -454,8 +459,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bcc52630a22d31419f45a50bda3230d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needSatisfied: {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
+  _needsSatisfied:
+  - {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
+  - {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
   _isAvailable: 1
   _stationarySet: {fileID: 11400000, guid: 3dc70964bddd8ae4d811df479bbc4be4, type: 2}
+  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
   _workstationType: {fileID: 11400000, guid: 0af36d67140b8c244ba54d95cb518390, type: 2}
   _defaultValue: 0.5

@@ -23,10 +23,22 @@ public class Needs : MonoBehaviour
     [SerializeField]
     private Need _priorityNeed;
     public Need PriorityNeed { get { return _priorityNeed; } }
-    public float PriorityNeedValue { get { return _needs[_priorityNeed]; } private set { _needs[_priorityNeed] = value; } }
+    public float PriorityNeedValue 
+    { 
+        get 
+        {
+            if (_priorityNeed == null) return 1.0f;
+
+            return _needs[_priorityNeed]; 
+        } 
+        private set 
+        { 
+            _needs[_priorityNeed] = value; 
+        } 
+    }
 
     [SerializeField]
-    private RuntimeSet<INeedResolver> _needResolverList;
+    private ResolverSet _needResolverList;
     [SerializeField]
     private INeedResolver _assignedResolver;
     public INeedResolver AssignedResolver => _assignedResolver;
@@ -62,27 +74,40 @@ public class Needs : MonoBehaviour
         }
 
         // if the current priority is topped off AND we're next to the resolver, we are now available.
-        if (PriorityNeedValue >= 1.0f - _priorityNeed.NeedTolerance && ResolverInRange())
+        if (PriorityNeedValue >= 1.0f - _priorityNeed?.NeedTolerance && ResolverInRange())
         {
             _priorityNeed = CalculatePriorities();
+            FindAvailableResolver(_priorityNeed);
+            return;
+        }
+
+        // double check priorities, in case we don't know what to do.
+        var newNeed = CalculatePriorities();
+        if (newNeed != _priorityNeed)
+        {
+            _priorityNeed = newNeed;
             FindAvailableResolver(_priorityNeed);
         }
     }
 
-    // refactor below. Instead we need a method to modify needs based on input from resolver.
-    // Let the resolver deside how the need is resolved.  Needs class should not be concerned with why needs change.
     private void ProcessNeedsChange()
     {
-        float distance = Vector3.Distance(transform.position, _assignedResolver.Transform.position);
+        List<Need> resolvableNeeds = new List<Need>();
+        System.Func<Needs, bool> resolve = (_) => false;
+        if (_assignedResolver != null)
+        {
+            resolvableNeeds = _assignedResolver.ResolvableNeeds;
+            resolve = _assignedResolver.ResolveNeed;
+        }
 
         List<Need> keys = new List<Need>(_needs.Keys);
         foreach (Need needKey in keys)
         {
             float newValue = _needs[needKey];
-            if (_assignedResolver.ResolvableNeeds.Contains(needKey))
+            if (resolvableNeeds.Contains(needKey))
             {
-                bool isResolved = _assignedResolver.ResolveNeed(this);
-
+                bool isResolved = resolve(this);
+                Debug.Log($"{name}'s need for {needKey} is resolved? {isResolved}");
                 if (isResolved) //don't decay
                     continue;
             }
@@ -90,12 +115,13 @@ public class Needs : MonoBehaviour
             newValue -= _baseDecayRate * needKey.DecayModifier;
 
             newValue = Mathf.Clamp(newValue, 0.0f, 1.0f);
+            Debug.Log($"{this.name} {needKey.name} = {newValue}");
             _needs[needKey] = newValue;
-            //Debug.Log($"{this.name} {needKey.name} = {_needs[needKey]}");
 
             // Here we need to trigger what happens if the need value is at 0.
 
         }
+
     }
 
     public bool ResolverInRange()
@@ -133,7 +159,7 @@ public class Needs : MonoBehaviour
         INeedResolver needResolver = _needResolverList.Items.Where(node => node.ResolvableNeeds.Contains(type) && node.IsAvailable).FirstOrDefault();
         if (needResolver == null)
         {
-            //Debug.LogWarning("No available node found!");
+            Debug.LogWarning($"{name} cannot find available resolver for {type}!");
             return;
         }
 
@@ -150,7 +176,6 @@ public class Needs : MonoBehaviour
 
     public void AddNeed(Need newNeed, float value)
     {
-        _needsList.Items.Add(newNeed);
         _needs.Add(newNeed, value);
         _priorityNeed = CalculatePriorities();
     }

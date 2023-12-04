@@ -9,6 +9,8 @@ public class Mobile : MonoBehaviour, INeedResolver
 {
 	[SerializeField]
 	private MobileSet _mobileSet;
+	[SerializeField] 
+	private ResolverSet _resolverSet;
 
 	[SerializeField]
 	private NavMeshAgent _navMeshAgent;
@@ -25,12 +27,14 @@ public class Mobile : MonoBehaviour, INeedResolver
     private void Awake()
     {
 		_mobileSet.Items.Add(this);
+		_resolverSet.Items.Add(this);
     }
 
     private void OnDestroy()
     {
         _mobileSet.Items.Remove(this);
-    }
+		_resolverSet.Items.Remove(this);
+	}
 
 	private void SetDestination(Vector3 position)
 	{

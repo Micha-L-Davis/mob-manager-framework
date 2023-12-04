@@ -94,6 +94,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4eff9b2b18d8ef488179e76b06995c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needSatisfied: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
+  _needsSatisfied:
+  - {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
   _isAvailable: 1
   _stationarySet: {fileID: 11400000, guid: 4602f85d655cbbd45a3f4b339dc8b626, type: 2}
+  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
