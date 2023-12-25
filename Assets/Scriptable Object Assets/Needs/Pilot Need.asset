@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6efc6595ca009074699833d4026e699c, type: 3}
   m_Name: Pilot Need
   m_EditorClassIdentifier: 
-  _priority: 2
+  _priority: 0
   _requiredProficiency: 1
   _needTolerance: 0.25
   _replenishmentModifier: 1

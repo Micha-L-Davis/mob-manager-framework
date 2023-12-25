@@ -133,10 +133,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4abcc3570e8f62044bedb16e8f2ce0d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mobileSet: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
   _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _navMeshAgent: {fileID: 3714343991220055039}
   _resolvableNeeds: []
+  _isAvailable: 1
+  _mobileSet: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
+  _navMeshAgent: {fileID: 3714343991220055039}
 --- !u!114 &1140509325682812069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -154,6 +155,8 @@ MonoBehaviour:
   _baseDecayRate: 0.01
   _baseReplenishRate: 0.1
   _needsChangeCooldown: 1
-  _priorityNeed: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
-  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
+  _defaultNeed: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
+  _needResolverLists:
+  - {fileID: 11400000, guid: bbd0322862a0edf44923c2154a8e6d5d, type: 2}
+  - {fileID: 11400000, guid: 2932db21f1ab83943b01bac73e92f13d, type: 2}
   _resolverRangeTolerance: 0.5

@@ -10,5 +10,5 @@ public interface INeedResolver
 
     public bool IsAvailable { get; set; }
 
-    public bool ResolveNeed(Needs needyObject);
+    public bool ProvideResolution(Needs needyObject);
 }

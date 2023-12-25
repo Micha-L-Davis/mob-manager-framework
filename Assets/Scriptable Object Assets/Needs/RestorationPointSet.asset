@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28ab3d224f85bdc4081866099ba1be7c, type: 3}
-  m_Name: Replenishment Node Set
+  m_Script: {fileID: 11500000, guid: 303e256a92ac7a749a1ca8b90574e724, type: 3}
+  m_Name: RestorationPointSet
   m_EditorClassIdentifier: 
-  _items: []
