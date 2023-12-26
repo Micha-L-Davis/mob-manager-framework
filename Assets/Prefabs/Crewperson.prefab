@@ -13,8 +13,10 @@ GameObject:
   - component: {fileID: 3714343991220055037}
   - component: {fileID: 3714343991220055038}
   - component: {fileID: 3714343991220055039}
-  - component: {fileID: 3714343991220055034}
-  - component: {fileID: 1140509325682812069}
+  - component: {fileID: -7603838226633751054}
+  - component: {fileID: 2387297726226065411}
+  - component: {fileID: 5327111307697610721}
+  - component: {fileID: 5785839276062636471}
   m_Layer: 0
   m_Name: Crewperson
   m_TagString: Untagged
@@ -121,7 +123,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3714343991220055034
+--- !u!114 &-7603838226633751054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,15 +132,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3714343991220054528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4abcc3570e8f62044bedb16e8f2ce0d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 172e8cf65dc7f0e49bfc73c8af40ce3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _resolvableNeeds: []
-  _isAvailable: 1
-  _mobileSet: {fileID: 11400000, guid: eae9e4d046327e845a0f15deb8b317a1, type: 2}
-  _navMeshAgent: {fileID: 3714343991220055039}
---- !u!114 &1140509325682812069
+--- !u!114 &2387297726226065411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,16 +144,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 3714343991220054528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6b7305a5d8a36449cbe3316246733f, type: 3}
+  m_Script: {fileID: 11500000, guid: 6f15ab57ab9f9794f88b54346c2cf722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsList: {fileID: 11400000, guid: 434bee5917770734aa81a8d6fe64d2d4, type: 2}
-  _initialNeedValue: 0.5
-  _baseDecayRate: 0.01
-  _baseReplenishRate: 0.1
-  _needsChangeCooldown: 1
-  _defaultNeed: {fileID: 11400000, guid: 984d082db3a244a43b159c9121161c6a, type: 2}
-  _needResolverLists:
-  - {fileID: 11400000, guid: bbd0322862a0edf44923c2154a8e6d5d, type: 2}
-  - {fileID: 11400000, guid: 2932db21f1ab83943b01bac73e92f13d, type: 2}
-  _resolverRangeTolerance: 0.5
+--- !u!114 &5327111307697610721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3714343991220054528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929a383493a2f574784b095c3762e837, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _states: []
+--- !u!114 &5785839276062636471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3714343991220054528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff6420b3fe7f7c4d95658937f981147, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _workSlots:
+  - isAvailable: 1
+    readiness: -1
+    laborCooldown: 1
+  _workSlotSet: {fileID: 11400000, guid: 90518a0a16942174195d113fa63cc00e, type: 2}

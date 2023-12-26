@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 288217903800086264}
   - component: {fileID: 288217903800086269}
   - component: {fileID: 288217903800086266}
-  - component: {fileID: 8011011915036581703}
-  - component: {fileID: 8603403579734989162}
+  - component: {fileID: 6269381551311881598}
+  - component: {fileID: 2011956629205460856}
   m_Layer: 0
   m_Name: Pilot Workstation
   m_TagString: Untagged
@@ -83,7 +83,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8011011915036581703
+--- !u!114 &6269381551311881598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,18 +92,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 288217903800086265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6b7305a5d8a36449cbe3316246733f, type: 3}
+  m_Script: {fileID: 11500000, guid: 929a383493a2f574784b095c3762e837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsList: {fileID: 11400000, guid: f685a3447e643364e830fe6369a14783, type: 2}
-  _initialNeedValue: 0.5
-  _baseDecayRate: 0.01
-  _baseReplenishRate: 0.1
-  _needsChangeCooldown: 1
-  _priorityNeed: {fileID: 0}
-  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _resolverRangeTolerance: 0.5
---- !u!114 &8603403579734989162
+  _states: []
+--- !u!114 &2011956629205460856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,16 +105,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 288217903800086265}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bcc52630a22d31419f45a50bda3230d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ff6420b3fe7f7c4d95658937f981147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsSatisfied:
-  - {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
-  _isAvailable: 1
-  _stationarySet: {fileID: 11400000, guid: 3dc70964bddd8ae4d811df479bbc4be4, type: 2}
-  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _workstationType: {fileID: 11400000, guid: c6ca53412b82d6e44b245e771e446282, type: 2}
-  _defaultValue: 0.5
+  _workSlots: []
+  _workSlotSet: {fileID: 0}
 --- !u!1 &5559139786927389240
 GameObject:
   m_ObjectHideFlags: 0
@@ -133,8 +121,8 @@ GameObject:
   - component: {fileID: 7116829016169722882}
   - component: {fileID: 7414957070016545589}
   - component: {fileID: 427687828822952523}
-  - component: {fileID: 2898421468975103713}
-  - component: {fileID: 5597968522413749018}
+  - component: {fileID: 2451331088413803154}
+  - component: {fileID: 7615609641772860702}
   m_Layer: 0
   m_Name: Navigator Workstation
   m_TagString: Untagged
@@ -205,7 +193,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2898421468975103713
+--- !u!114 &2451331088413803154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -214,18 +202,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5559139786927389240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6b7305a5d8a36449cbe3316246733f, type: 3}
+  m_Script: {fileID: 11500000, guid: 929a383493a2f574784b095c3762e837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsList: {fileID: 11400000, guid: f685a3447e643364e830fe6369a14783, type: 2}
-  _initialNeedValue: 0.5
-  _baseDecayRate: 0.01
-  _baseReplenishRate: 0.1
-  _needsChangeCooldown: 1
-  _priorityNeed: {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
-  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _resolverRangeTolerance: 0.5
---- !u!114 &5597968522413749018
+  _states: []
+--- !u!114 &7615609641772860702
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -234,17 +215,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5559139786927389240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bcc52630a22d31419f45a50bda3230d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ff6420b3fe7f7c4d95658937f981147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsSatisfied:
-  - {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
-  - {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
-  _isAvailable: 1
-  _stationarySet: {fileID: 11400000, guid: 3dc70964bddd8ae4d811df479bbc4be4, type: 2}
-  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _workstationType: {fileID: 11400000, guid: 01ab6f28d889d6749a37673d4f091d76, type: 2}
-  _defaultValue: 0.5
+  _workSlots: []
+  _workSlotSet: {fileID: 0}
 --- !u!1 &6788740985081305312
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,8 +330,8 @@ GameObject:
   - component: {fileID: 5714098873974843695}
   - component: {fileID: 7339045583973602057}
   - component: {fileID: 3798742261620646877}
-  - component: {fileID: 8133860419105849082}
-  - component: {fileID: 5722828131418043558}
+  - component: {fileID: 3167160801954754077}
+  - component: {fileID: 6022808772646222900}
   m_Layer: 0
   m_Name: Astrogator Workstation
   m_TagString: Untagged
@@ -427,7 +402,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8133860419105849082
+--- !u!114 &3167160801954754077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -436,18 +411,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8544794341161678447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6b7305a5d8a36449cbe3316246733f, type: 3}
+  m_Script: {fileID: 11500000, guid: 929a383493a2f574784b095c3762e837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsList: {fileID: 11400000, guid: f685a3447e643364e830fe6369a14783, type: 2}
-  _initialNeedValue: 0.5
-  _baseDecayRate: 0.01
-  _baseReplenishRate: 0.1
-  _needsChangeCooldown: 1
-  _priorityNeed: {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
-  _needResolverList: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _resolverRangeTolerance: 0.5
---- !u!114 &5722828131418043558
+  _states: []
+--- !u!114 &6022808772646222900
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -456,14 +424,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8544794341161678447}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bcc52630a22d31419f45a50bda3230d, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ff6420b3fe7f7c4d95658937f981147, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needsSatisfied:
-  - {fileID: 11400000, guid: 40a5457cbcc6def448d45bcda99d6ae2, type: 2}
-  - {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
-  _isAvailable: 1
-  _stationarySet: {fileID: 11400000, guid: 3dc70964bddd8ae4d811df479bbc4be4, type: 2}
-  _resolverSet: {fileID: 11400000, guid: 52594af2ba7d7154ba484f1e96e426bb, type: 2}
-  _workstationType: {fileID: 11400000, guid: 0af36d67140b8c244ba54d95cb518390, type: 2}
-  _defaultValue: 0.5
+  _workSlots: []
+  _workSlotSet: {fileID: 0}
