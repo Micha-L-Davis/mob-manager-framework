@@ -5,9 +5,14 @@ using UnityEngine;
 [System.Serializable]
 public struct StateNotification
 {
-    FloatVariable _state;
-    public FloatVariable State => _state;
+    StateVariable _state;
+    public StateVariable State => _state;
     StatefulObject _notifier;
     public StatefulObject Notifier => _notifier;
 
+    public StateNotification(StateVariable state, StatefulObject notifier)
+    {
+        _state = state;
+        _notifier = notifier;
+    }
 }

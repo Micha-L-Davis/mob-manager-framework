@@ -135,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172e8cf65dc7f0e49bfc73c8af40ce3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _responderSet: {fileID: 0}
 --- !u!114 &2387297726226065411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f15ab57ab9f9794f88b54346c2cf722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _responsibilities: []
+  _workPositions: {fileID: 0}
 --- !u!114 &5327111307697610721
 MonoBehaviour:
   m_ObjectHideFlags: 0

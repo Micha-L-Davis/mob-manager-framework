@@ -8,12 +8,13 @@ public struct State
     [SerializeField]
     public StateChangeEvent OnStateChange;
     [SerializeField]
-    FloatVariable _stateVariable;
-    public FloatVariable StateVariable => _stateVariable;
+    StateVariable _stateVariable;
+    public StateVariable StateVariable => _stateVariable;
 
-    public State(StateChangeEvent eventAsset, FloatVariable variableAsset)
-    {
-        OnStateChange = eventAsset;
-        _stateVariable = variableAsset;
-    }
+    [SerializeField]
+    private float _upperTolerance;
+    [SerializeField]
+    private float _lowerTolerance;
+
+
 }

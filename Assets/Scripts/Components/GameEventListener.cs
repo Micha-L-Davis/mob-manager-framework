@@ -6,13 +6,13 @@ using UnityEngine.Events;
 public class GameEventListener : MonoBehaviour
 {
     public GameEvent Event;
-    public UnityEvent Response;
+    public UnityEvent Response = new UnityEvent();
 
     private void OnEnable()
-    { Event.RegisterListener(this); }
+    { Event?.RegisterListener(this); }
 
     private void OnDisable()
-    { Event.UnregisterListener(this); }
+    { Event?.UnregisterListener(this); }
 
     public void OnEventRaised()
     { Response.Invoke(); }
@@ -24,10 +24,10 @@ public abstract class GameEventListener<T> : MonoBehaviour
     public UnityEvent<T> Response;
 
     private void OnEnable()
-    { Event.RegisterListener(this); }
+    { Event?.RegisterListener(this); }
 
     private void OnDisable()
-    { Event.UnregisterListener(this); }
+    { Event?.UnregisterListener(this); }
 
     public void OnEventRaised(T t)
     { Response.Invoke(t); }

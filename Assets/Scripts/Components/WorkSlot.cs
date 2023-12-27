@@ -16,7 +16,7 @@ public struct WorkSlot
         this.laborCooldown = laborCooldown;
     }
 
-    public void ApplyLabor(FloatVariable state, float value)
+    public void ApplyLabor(StateVariable state, float value)
     {
         if (readiness < Time.time)
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class MobileObject : MonoBehaviour, IStateRespondable
+public class MobileResponder : StateResponder
 {
     private NavMeshAgent _navMeshAgent;
 
@@ -13,7 +13,7 @@ public class MobileObject : MonoBehaviour, IStateRespondable
         _navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
-    public void Respond(GameObject target)
+    public override void Respond(GameObject target)
     {
         SetDestination(target.transform.position);
     }

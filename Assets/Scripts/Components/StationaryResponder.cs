@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StationaryObject : MonoBehaviour, IStateRespondable
+public class StationaryResponder : StateResponder
 {
-    public void Respond(GameObject target)
+    public override void Respond(GameObject target)
     {
-        MobileObject mob = target.GetComponent<MobileObject>();
+        MobileResponder mob = target.GetComponent<MobileResponder>();
         if (mob != null)
         {
             mob.SetDestination(transform.position);
