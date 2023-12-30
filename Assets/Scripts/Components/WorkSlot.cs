@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public struct WorkSlot
+public class WorkSlot
 {
     public bool isAvailable;
     public float readiness;

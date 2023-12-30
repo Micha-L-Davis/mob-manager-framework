@@ -7,10 +7,11 @@ public class StateVariable : ScriptableObject
 {
 #if UNITY_EDITOR
     [Multiline]
-    public string DeveloperDescription = "";
+    public string StateDescription = "";
 #endif
-    [Range(-1f, 1f)]
-    public float Value = 0;
+    [Range(-1.0f, 1.0f), SerializeField]
+    private float _value = 0;
+    public float Value => _value;
 
     [SerializeField]
     private float _baseDecay;
@@ -20,14 +21,14 @@ public class StateVariable : ScriptableObject
 
     public void SetValue(float value)
     {
-        Value = Mathf.Clamp(value, -1.0f, 1.0f);
+        _value = Mathf.Clamp(value, -1.0f, 1.0f);
     }
 
     public void ApplyChange(float amount)
     {
-        float v = Value;
+        float v = _value;
         v += amount;
-        Value = Mathf.Clamp(v, -1.0f, 1.0f);
+        _value = Mathf.Clamp(v, -1.0f, 1.0f);
     }
 
     public void Decay(float additionalDecay = 0, float decayMultiplier = 1)
