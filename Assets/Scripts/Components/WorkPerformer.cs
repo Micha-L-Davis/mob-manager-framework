@@ -8,18 +8,17 @@ using UnityEngine.Events;
 public class WorkPerformer : MonoBehaviour
 {
     [SerializeField]
-    List<State> _responsibilities = new List<State>(); // Index in priority order, 0 = highest priority
-    //[SerializeField]
-    //WorkSlotSet _workPositions;
+    List<TaskQueue> _workQueues = new List<TaskQueue>();
+
     [SerializeField]
-    State _activeResponsibility;
+    Task _activeTask;
     float _baseLabor = 0.5f;
 
     StateResponder _responderComponent;
     private void Awake()
     {
         // create Unity Event components for each responsibilty
-        foreach (State state in _responsibilities)
+        foreach (TaskQueue queue in _workQueues)
         {
             gameObject.AddComponent<StateChangeEventListener>();
         }
@@ -34,61 +33,83 @@ public class WorkPerformer : MonoBehaviour
     private void InitializeEventListeners()
     {
         StateChangeEventListener[] listeners = gameObject.GetComponents<StateChangeEventListener>();
-        for (int i = 0; i < _responsibilities.Count; i++)
+        for (int i = 0; i < _workQueues.Count; i++)
         {
-            StateChangeEvent gameEvent = _responsibilities[i].OnStateChange;
+            StateTaskEvent gameEvent = _workQueues[i].OnNewTaskQueued;
             StateChangeEventListener listener = listeners[i];
-            listener.enabled = false;
+            if (listener == null || gameEvent == null)
+            {
+                Debug.LogError("Cannot initialize event listener with null data");
+            }
             listener.Event = gameEvent;
 
-            System.Type[] types = new[] { typeof(StateNotification) };
-            System.Reflection.MethodInfo targetInfo = UnityEvent.GetValidMethodInfo(this, nameof(EvaluateResponsibility), types);
-            UnityAction<StateNotification> methodDelegate = System.Delegate.CreateDelegate(typeof(UnityAction<StateNotification>), this, targetInfo, true) as UnityAction<StateNotification>;
+            System.Type[] types = new[] { typeof(Task) };
+            System.Reflection.MethodInfo targetInfo = UnityEvent.GetValidMethodInfo(this, nameof(EvaluateTask), types);
+            UnityAction<Task> methodDelegate = System.Delegate.CreateDelegate(typeof(UnityAction<Task>), this, targetInfo, true) as UnityAction<Task>;
             UnityEventTools.AddPersistentListener(listener.Response, methodDelegate);
-
+            listener.enabled = false;
             listener.enabled = true;
         }
     }
 
-    private void EvaluateResponsibility(StateNotification stateNotification)
+    private void EvaluateTask(Task task)
     {
-        // apply incoming state condition to noteScore
-
-        // apply distance to target object to noteScore
-
-        // apply active responsibility condition to activeScore
-
-        // apply distance to active object to activeScore
-
-        // apply weight to activeScore (for stickiness)
-
-        // compare scores, switch activeResponsibility if necessary
-
-        // TendResponsibility if it has changed
-
-        if (_activeResponsibility.Variable != stateNotification.State.Variable)
+        if (_activeTask != null)
         {
-            TendResponsibility(stateNotification);
+            // If the incoming task is from a task queue lower than the current task's queue, ignore
+            if (_workQueues.IndexOf(task.TargetObject.WorkQueue) > _workQueues.IndexOf(_activeTask.TargetObject.WorkQueue)) return;
+            // If the incoming task is lower than or equal in priority to the current task, ignore
+            if (task.Priority < _activeTask.Priority) return;
+            // If incoming task refers to the same state variable as the current task, ignore
+            if (task.State.Variable == _activeTask.State.Variable) return;
         }
+
+        task.TargetObject.WorkQueue.Remove(task);
+        _activeTask = task;
+
+        Work(task);
     }
 
-    private void TendResponsibility(StateNotification stateNotification)
+    private void Work(Task task)
     {
         // find a work position on the target object
-        WorkCenter workCenter = stateNotification.Notifier.GetComponent<WorkCenter>();
-        if (stateNotification.Notifier == null) return;
+        WorkCenter workCenter = task.TargetObject.GetComponent<WorkCenter>();
+        if (task.TargetObject == null) return;
         WorkSlot slot = workCenter.GetAvailableSlot();
         // if distance is too great, signal the responder component
-        if (Vector3.Distance(this.transform.position, stateNotification.Notifier.transform.position) > 0.25f)
+        if (Vector3.Distance(this.transform.position, task.TargetObject.transform.position) > 0.25f)
         {
-            _responderComponent.Respond(stateNotification.Notifier.gameObject);
+            _responderComponent.Respond(task.TargetObject.gameObject);
         }
         // if distance is near, apply labor to the work position
         else
         {
-            slot.ApplyLabor(stateNotification.State.Variable, _baseLabor);
+            slot.ApplyLabor(task.State.Variable, _baseLabor);
         }
     }
 
+    void CompleteTast(Task task)
+    {
+        if (task.State.Condition >= task.CompletionCondition)
+        {
+            _activeTask = null;
+        }
+    }
 
+    private void FindWork()
+    {
+        for (int i = 0; i < _workQueues.Count; i++)
+        {
+            TaskQueue queue = _workQueues[i];
+
+            if (queue.IsEmpty) continue;
+
+            _activeTask = queue.Dequeue();
+        }
+    }
+
+    private void Update()
+    {
+        if (_activeTask == null) FindWork();
+    }
 }

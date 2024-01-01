@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Scriptable Object/Event/State Change Event")]
-public class StateChangeEvent : GameEvent<StateNotification>
+public class StateTaskEvent : GameEvent<Task>
 {
 
 }

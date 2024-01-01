@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cbc46b31769ecbd47a4d12950419db76, type: 3}
-  m_Name: CourseDrift
+  m_Name: Rest
   m_EditorClassIdentifier: 
-  StateDescription: 
+  StateDescription: "A little extra sleep will improve mood. Too much will worsen
+    it. \nA little lost sleep can make for extra work time. Too little will increase
+    potiential for accidents."
   _value: -1
-  _baseDecay: 0.05
-  _baseRestore: 0.5
+  _baseDecay: 0.01
+  _baseRestore: 0.1

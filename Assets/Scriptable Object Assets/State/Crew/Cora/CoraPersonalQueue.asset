@@ -9,10 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbc46b31769ecbd47a4d12950419db76, type: 3}
-  m_Name: CourseDrift
+  m_Script: {fileID: 11500000, guid: f38b82dbca9a79646acd4a405d2c9f92, type: 3}
+  m_Name: CoraPersonalQueue
   m_EditorClassIdentifier: 
-  StateDescription: 
-  _value: -1
-  _baseDecay: 0.05
-  _baseRestore: 0.5
+  OnNewTaskQueued: {fileID: 11400000, guid: 2610e9b23ae0acd4c88e07c0a078e741, type: 2}
+  _data: []

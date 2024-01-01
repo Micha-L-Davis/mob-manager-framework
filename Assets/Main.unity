@@ -2491,7 +2491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1390835905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3598,6 +3598,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 90518a0a16942174195d113fa63cc00e, type: 2}
     - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _workQueues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _workQueues.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ddc17032b9f1ad4297792cf0d084f15, type: 2}
+    - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _workQueues.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 322b78d0f34e161418f5d111b3c34f46, type: 2}
+    - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
       propertyPath: _responsibilities.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3606,9 +3618,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 57ace1455dee0c94caa539b21db1b929, type: 2}
     - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _responsibilities.Array.data[0]._decayCooldown
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
       propertyPath: _responsibilities.Array.data[0]._stateVariable
       value: 
-      objectReference: {fileID: 11400000, guid: 4300dc2df0b0b72498c0fc6d2d70ea25, type: 2}
+      objectReference: {fileID: 11400000, guid: 9204d4820d35a694c8f8332d2bf532ba, type: 2}
+    - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _responsibilities.Array.data[0]._cooldownInterval
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387297726226065411, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _responsibilities.Array.data[0].OnStateConditionChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 57ace1455dee0c94caa539b21db1b929, type: 2}
     - target: {fileID: 3714343991220054528, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
       propertyPath: m_Name
       value: Crewperson Cora
@@ -3657,7 +3681,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5327111307697610721, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _workQueue
+      value: 
+      objectReference: {fileID: 11400000, guid: 4ddc17032b9f1ad4297792cf0d084f15, type: 2}
+    - target: {fileID: 5327111307697610721, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _states.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327111307697610721, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _states.Array.data[0]._decayCooldown
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327111307697610721, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _states.Array.data[0]._stateVariable
+      value: 
+      objectReference: {fileID: 11400000, guid: 946b4b8cb49326743b87700bd39d4ae9, type: 2}
+    - target: {fileID: 5327111307697610721, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _states.Array.data[0]._cooldownInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5327111307697610721, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
+      propertyPath: _states.Array.data[0].OnStateConditionChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 2610e9b23ae0acd4c88e07c0a078e741, type: 2}
+    m_RemovedComponents:
+    - {fileID: 5785839276062636471, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ad8e0c62362993843b0f643b394755e2, type: 3}
 --- !u!1 &2092856838
 GameObject:
@@ -3677,7 +3726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2092856840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3929,6 +3978,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d6221b467f8bd75458c9a8684510af3d, type: 2}
     - target: {fileID: 6269381551311881598, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
+      propertyPath: _workQueue
+      value: 
+      objectReference: {fileID: 11400000, guid: 322b78d0f34e161418f5d111b3c34f46, type: 2}
+    - target: {fileID: 6269381551311881598, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
       propertyPath: _states.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -3937,9 +3990,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 57ace1455dee0c94caa539b21db1b929, type: 2}
     - target: {fileID: 6269381551311881598, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
+      propertyPath: _states.Array.data[0]._decayCooldown
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269381551311881598, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
       propertyPath: _states.Array.data[0]._stateVariable
       value: 
-      objectReference: {fileID: 11400000, guid: 4300dc2df0b0b72498c0fc6d2d70ea25, type: 2}
+      objectReference: {fileID: 11400000, guid: 9204d4820d35a694c8f8332d2bf532ba, type: 2}
+    - target: {fileID: 6269381551311881598, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
+      propertyPath: _states.Array.data[0]._cooldownInterval
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6269381551311881598, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
+      propertyPath: _states.Array.data[0].OnStateConditionChange
+      value: 
+      objectReference: {fileID: 11400000, guid: 57ace1455dee0c94caa539b21db1b929, type: 2}
     - target: {fileID: 6788740985081305312, guid: 2c9132b1dfb51e6469181cf004c8503a, type: 3}
       propertyPath: m_Name
       value: Workplace

@@ -8,16 +8,6 @@ public class WorkCenter : MonoBehaviour
     StatefulObject _statefulObject;
     [SerializeField]
     List<WorkSlot> _workSlots = new List<WorkSlot>();
-    //[SerializeField]
-    //WorkSlotSet _workSlotSet;
-
-    //private void Awake()
-    //{
-    //    foreach(WorkSlot slot in _workSlots)
-    //    {
-    //        _workSlotSet.Items.Add(slot);
-    //    }
-    //}
 
     private void Start()
     {
